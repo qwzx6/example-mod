@@ -1,53 +1,53 @@
-name: Build Geode Mod
+name: Build Geode Mod 
 
-on:
-  push:
-    branches:
-      - main
-  pull_request:
+on:  
+push:  
+branches:  
+\- main  
+pull\_request: 
 
-jobs:
-  build:
-    strategy:
-      fail-fast: false
-      matrix:
-        config:
-        - name: Windows
-          os: windows-latest
-        - name: macOS
-          os: macos-latest
-        - name: Android32
-          os: ubuntu-latest
-          target: Android32
-        - name: Android64
-          os: ubuntu-latest
-          target: Android64
+jobs:  
+build:  
+strategy:  
+fail-fast: false  
+matrix:  
+config:  
+\- name: Windows  
+os: windows-latest  
+\- name: macOS  
+os: macos-latest  
+\- name: Android32  
+os: ubuntu-latest  
+target: Android32  
+\- name: Android64  
+os: ubuntu-latest  
+target: Android64 
 
-    name: ${{ matrix.config.name }}
-    runs-on: ${{ matrix.config.os }}
+name: ${{ matrix.config.name }}  
+runs-on: ${{ matrix.config.os }} 
 
-    steps:
-    - name: Checkout Code
-      uses: actions/checkout@v4
+steps:  
+\- name: Checkout Code  
+uses: actions/checkout@v4 
 
-    - name: Build Mod
-      uses: geode-sdk/build-geode-mod@main
-      with:
-        target: ${{ matrix.config.target }}
+\- name: Build Mod  
+uses: geode-sdk/build-geode-mod@main  
+with:  
+target: ${{ matrix.config.target }} 
 
-  package:
-    name: Package Builds
-    needs: build
-    runs-on: ubuntu-latest
+package:  
+name: Package Builds  
+needs: build  
+runs-on: ubuntu-latest 
 
-    steps:
-    - name: Merge Artifacts
-      uses: geode-sdk/build-geode-mod/combine@main
-      with:
-        dest: output.geode
+steps:  
+\- name: Merge Artifacts  
+uses: geode-sdk/build-geode-mod/combine@main  
+with:  
+dest: output.geode 
 
-    - name: Upload Artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: my-geode-mod
-        path: output.geode
+\- name: Upload Artifact  
+uses: actions/upload-artifact@v4  
+with:  
+name: my-geode-mod  
+path: output.geode
